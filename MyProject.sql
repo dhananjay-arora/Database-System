@@ -88,6 +88,19 @@ CREATE TABLE `restaurant` (
   PRIMARY KEY (`restaurant_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `delivery`;
+CREATE TABLE `delivery` (
+  `delivery_id` int(11) NOT NULL AUTO_INCREMENT,
+  `driver_id` int(11) NOT NULL,
+  `vehicle_id` int(11) NOT NULL,
+  `delivery_time` datetime DEFAULT null,
+  PRIMARY KEY (`delivery_id`),
+  KEY `fk_delivery_driver_id` (`driver_id`),
+  KEY `fk_delivery_vehicle_id` (`vehicle_id`),
+  CONSTRAINT `fk_delivery_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_delivery_vehicle_id` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`vehicle_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -109,20 +122,4 @@ CREATE TABLE `order` (
   CONSTRAINT `fk_O_location_id` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_O_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_O_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`restaurant_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `delivery`;
-CREATE TABLE `delivery` (
-  `delivery_id` int(11) NOT NULL AUTO_INCREMENT,
-  `driver_id` int(11) NOT NULL,
-  `vehicle_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `delivery_time` datetime DEFAULT null,
-  PRIMARY KEY (`order_id`),
-  KEY `fk_delivery_driver_id` (`driver_id`),
-  KEY `fk_delivery_vehicle_id` (`vehicle_id`),
-  KEY `fk_delivery_order_id` (`order_id`),
-  CONSTRAINT `fk_delivery_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_delivery_vehicle_id` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`vehicle_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_delivery_order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
