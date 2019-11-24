@@ -7,7 +7,6 @@ CREATE TABLE `person` (
   `person_name` varchar(300) DEFAULT NULL,
   `person_email` varchar(150) DEFAULT NULL,
   `cell` int(15) DEFAULT NULL,
-  `person_type` varchar(25) NOT NULL,
   PRIMARY KEY (`person_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
