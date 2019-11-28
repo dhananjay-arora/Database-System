@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "8f6500ee-b918-4d20-8779-a63c40c374a5",
+		"name": "dbms_project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/deletetudent",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "student_id",
+							"value": "151",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/deletetudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deletetudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/poststudents",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "john",
+							"type": "text"
+						},
+						{
+							"key": "cell",
+							"value": "980999222",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "a@a.com",
+							"type": "text"
+						},
+						{
+							"key": "graduation_year",
+							"value": "2020",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "CS",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "grad",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/poststudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"poststudents"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
