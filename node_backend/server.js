@@ -5,6 +5,29 @@ var app = express();
 app.use(express.urlencoded());
 app.use(express.json());
 
+//app.use(function (req, res, next) {
+//
+//    // Website you wish to allow to connect
+//    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+//
+//    // Request methods you wish to allow
+//    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//
+//    // Request headers you wish to allow
+//    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//
+//    // Set to true if you need the website to include cookies in the requests sent
+//    // to the API (e.g. in case you use sessions)
+//    res.setHeader('Access-Control-Allow-Credentials', true);
+//
+//    // Pass to next layer of middleware
+//    next();
+//});
+
+var cors = require('cors');
+
+// use it before all route definitions
+app.use(cors({origin: '*'}));
 
 app.get('/getstudents', function (req, res) {
    
@@ -20,7 +43,7 @@ app.get('/getstudents', function (req, res) {
 
     con.connect(function(err) {
       if (err) throw err;
-      con.query("SELECT * FROM student", function (err, result, fields) {
+      con.query("SELECT * FROM student s JOIN person p ON s.person_id=p.person_id", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
           res.send(result);
@@ -63,7 +86,7 @@ app.post('/poststudents', function (req, res) {
     
 });
 
-app.delete('/deletetudent', function (req, res) {
+app.post('/deletestudent', function (req, res) {
     
     var mysql = require('mysql');
     console.log(req);
