@@ -52,6 +52,38 @@ app.get('/getstudents', function (req, res) {
     
 });
 
+app.post('/getonestudent', function (req, res) {
+    
+    var mysql = require('mysql');
+    console.log(req);
+
+    var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "password",
+      database:"niner_eats"
+    });
+    
+    var query="SELECT * FROM student s JOIN person p ON s.person_id=p.person_id WHERE student_id = ?";
+    var val=req.body.student_id;
+
+    
+    con.connect(function(err) {
+      if (err) throw err;
+      con.query(query,[val], function (err, result, fields) {
+        if (err) {
+             res.send(err);
+            throw err;
+                }
+        else{  
+        console.log(result);
+        res.send(result)
+        }
+      });
+    });    
+    
+});
+
 
 app.post('/poststudents', function (req, res) {
     
@@ -66,7 +98,7 @@ app.post('/poststudents', function (req, res) {
     });
 
     var person_query="INSERT INTO person (person_name, person_email,cell) VALUES ?";
-    var person_val=[[req.body.name,req.body.email,req.body.cell]];
+    var person_val=[[req.body.person_name,req.body.person_email,req.body.cell]];
     var student_query="INSERT INTO student (person_id, graduation_year,major,type) VALUES ?";
 
     con.connect(function(err) {
@@ -85,6 +117,38 @@ app.post('/poststudents', function (req, res) {
     });    
     
 });
+
+app.put('/updatestudent', function (req, res) {
+    
+    var mysql = require('mysql');
+    console.log(req);
+
+    var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "password",
+      database:"niner_eats"
+    });
+
+    var person_query="UPDATE person SET person_name=?,person_email=?,cell=? WHERE person_id=?";
+    var student_query="UPDATE student SET graduation_year=?,major=?,type=? WHERE student_id=?";
+
+
+    con.connect(function(err) {
+      if (err) throw err;
+      con.query(person_query,[req.body.person_name,req.body.person_email,req.body.cell,req.body.person_id], function (err, result, fields) {
+        if (err) throw err;
+        con.query(student_query,[req.body.graduation_year,req.body.major, req.body.type,req.body.student_id],function (err, result, fields) {
+        if (err) throw err;
+        res.send("Updated")
+      });
+          
+      });
+    });    
+    
+});
+
+
 
 app.post('/deletestudent', function (req, res) {
     
